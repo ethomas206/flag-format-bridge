@@ -246,6 +246,59 @@ LD_TO_FLAT_ERROR_CASES = [
             ],
         },
     ),
+    ("input is not an object", ["not", "a", "flag"]),
+    ("missing key", {"variations": [True, False], "offVariation": 1}),
+    (
+        "offVariation out of range",
+        {
+            "key": "bad-index",
+            "on": True,
+            "variations": [True, False],
+            "offVariation": 5,
+            "fallthrough": {"variation": 1},
+        },
+    ),
+    (
+        "target missing values",
+        {
+            "key": "bad-target",
+            "on": True,
+            "variations": [True, False],
+            "offVariation": 1,
+            "fallthrough": {"variation": 1},
+            "targets": [{"variation": 0}],
+        },
+    ),
+    (
+        "rule missing variation",
+        {
+            "key": "bad-rule",
+            "on": True,
+            "variations": [True, False],
+            "offVariation": 1,
+            "fallthrough": {"variation": 1},
+            "rules": [
+                {
+                    "clauses": [
+                        {"attribute": "country", "op": "in", "values": ["DE"]}
+                    ]
+                }
+            ],
+        },
+    ),
+    (
+        "clause missing attribute",
+        {
+            "key": "bad-clause",
+            "on": True,
+            "variations": [True, False],
+            "offVariation": 1,
+            "fallthrough": {"variation": 1},
+            "rules": [
+                {"variation": 0, "clauses": [{"op": "in", "values": ["DE"]}]}
+            ],
+        },
+    ),
 ]
 
 FLAT_TO_LD_ROUND_TRIP_CASES = [
@@ -327,6 +380,28 @@ FLAT_TO_LD_ERROR_CASES = [
             "default_value": True,
             "off_value": False,
             "rules": [{"attribute": "country", "in": ["DE"], "value": "on"}],
+        },
+    ),
+    ("input is not an object", ["not", "a", "flag"]),
+    ("missing name", {"default_value": True, "off_value": False}),
+    (
+        "overrides is not an object",
+        {
+            "name": "weird",
+            "enabled": True,
+            "default_value": True,
+            "off_value": False,
+            "overrides": ["alice"],
+        },
+    ),
+    (
+        "rule missing 'in'",
+        {
+            "name": "weird-rule",
+            "enabled": True,
+            "default_value": True,
+            "off_value": False,
+            "rules": [{"attribute": "country", "value": True}],
         },
     ),
 ]

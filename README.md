@@ -74,7 +74,10 @@ flag has more than two variations, uses a percentage rollout, or has a rule
 with more than one clause, `ld_to_flat` raises `ConversionError` with an
 explanation rather than silently dropping the parts it can't represent.
 `flat_to_ld` similarly rejects non-boolean values anywhere in the flat
-format.
+format. Malformed input — missing fields, wrong types, an out-of-range
+variation index, JSON that isn't even an object — is rejected the same
+way, with a message pointing at what's wrong, rather than an unhandled
+`KeyError` or `TypeError`.
 
 ## Running the tests
 
