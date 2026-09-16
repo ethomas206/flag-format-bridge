@@ -67,6 +67,25 @@ python -m flagconv.cli flat-to-ld flat/beta-ui.json
 
 Piping works too — omit the input file to read from stdin.
 
+## CSV export
+
+For a quick spreadsheet review of a batch of flags, `flat_to_csv` renders a
+list of flat-format flags as CSV. It's one-way: overrides and rules get
+squashed into readable text columns rather than a structure you could parse
+back out.
+
+```python
+from flagconv import flat_to_csv
+
+csv_text = flat_to_csv([flat_flag_one, flat_flag_two])
+```
+
+```sh
+python -m flagconv.cli to-csv flags/all-flat.json -o flags.csv
+```
+
+The input can be a single flat flag object or a JSON array of them.
+
 ## What it doesn't support
 
 Both directions only handle plain on/off boolean flags. If a LaunchDarkly
